@@ -1,0 +1,16 @@
+export default {
+  black: "#000000",
+  blue: "#025fd9",
+  blueDark: "#024397",
+  dark: "#212121",
+  gameOver: "#ff0007",
+  green: "#0eab00",
+  gray: "#9c9c9c",
+  greenDark: "#0b8000",
+  light: "#f8f4f4",
+  red: "#fd151b",
+  redDark: "#ca0209",
+  white: "#ffffff",
+  yellow: "#ffb30f",
+  yellowDark: "#c78800",
+};

@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import "./src/utilities/setTimer";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+
+import Home from "./src/screens/Home/Home";
+import Score from "./src/screens/Score/Score";
+import { View, Platform, Text } from "react-native";
+import NavigationTheme from "./src/navigation/NavigationTheme";
+import AppNavigator from "./src/navigation/AppNavigator";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <NavigationContainer theme={NavigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+      {/* <Score /> */}
+      {/* <View>
+        <Text>{Application.androidId}</Text>
+      </View> */}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
