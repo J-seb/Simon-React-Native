@@ -4,16 +4,19 @@ import { ImageBackground, View } from "react-native";
 import ButtonsGroup from "../../components/ButtonsGroup/ButtonsGroup";
 import HeaderText from "../../components/HeaderText/HeaderText";
 import Modal from "../../components/Modal/Modal";
+import OfflineNotice from "../../components/OfflineNotice/OfflineNotice";
+import Screen from "../../components/Screen/Screen";
+
+import useActivateButton from "../../hooks/useActivateButton";
+import useChangeBackground from "../../hooks/useChangeBackground";
 
 import getRandomColor from "../../utilities/randomColor";
-import useActivateButton from "../../hooks/useActivateButton";
 import playSoundColor from "../../utilities/sounds";
-import styles from "./styles";
 import sendScore from "../../utilities/sendScore";
-import Screen from "../../components/Screen/Screen";
-import OfflineNotice from "../../components/OfflineNotice/OfflineNotice";
-import useChangeBackground from "../../hooks/useChangeBackground";
+
 import backgrounds from "../../config/backgroundsHome";
+
+import styles from "./styles";
 
 function Home() {
   const { buttonColor, autoPressButton } = useActivateButton();
@@ -22,7 +25,7 @@ function Home() {
   const [isStarted, setIsStarted] = useState(false);
   const [count, setCount] = useState(0);
   const [level, setLevel] = useState(0);
-  const [sequence, setSequence] = useState([]);
+  const [arrayOfColors, setArrayOfColors] = useState([]);
   const [score, setScore] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,26 +33,26 @@ function Home() {
   const startGame = () => {
     setIsStarted(true);
     setLevel(1);
-    generateNewSequence();
+    generateNewColor();
   };
 
-  const generateNewSequence = () => {
+  const generateNewColor = () => {
     const color = getRandomColor();
     playSoundColor(color);
     autoPressButton(color);
-    setSequence([...sequence, color]);
+    setArrayOfColors([...arrayOfColors, color]);
   };
 
-  const handleColor = (color) => {
+  const handleTouchColor = (color) => {
     playSoundColor(color);
     if (isStarted) {
-      if (sequence[count] === color) {
-        if (count === sequence.length - 1) {
+      if (arrayOfColors[count] === color) {
+        if (count === arrayOfColors.length - 1) {
           setTimeout(() => {
-            generateNewSequence();
+            generateNewColor();
             setCount(0);
             setLevel(level + 1);
-          }, 300);
+          }, 400);
         }
         setCount(count + 1);
         setScore(score + 1);
@@ -61,13 +64,13 @@ function Home() {
         setCount(0);
         setLevel(0);
 
-        setSequence([]);
+        setArrayOfColors([]);
         console.log("GameOver");
       }
     }
   };
 
-  handleSubmit = (nick) => {
+  const handleSubmitNick = (nick) => {
     sendScore(nick, score);
     setScore(0);
     setIsModalOpen(!isModalOpen);
@@ -90,10 +93,13 @@ function Home() {
               score={score}
             />
             <ButtonsGroup
-              handleColor={(color) => handleColor(color)}
+              handleColor={(color) => handleTouchColor(color)}
               buttonActivated={buttonColor}
             />
-            <Modal isOpen={isModalOpen} handleSubmit={(e) => handleSubmit(e)} />
+            <Modal
+              isOpen={isModalOpen}
+              handleSubmit={(event) => handleSubmitNick(event)}
+            />
           </View>
         </ImageBackground>
       </Screen>

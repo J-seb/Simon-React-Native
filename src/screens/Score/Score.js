@@ -120,3 +120,69 @@ function Score() {
 }
 
 export default Score;
+
+// IMPLEMENTATION WITH CUSTOM HOOK (TESTING)
+
+// import React from "react";
+// import { View } from "react-native";
+
+// import ActivityIndicator from "../../components/ActivityIndicator/ActivityIndicator";
+// import Medal from "../../components/SvgIcons/Medal";
+// import Screen from "../../components/Screen/Screen";
+// import ScoreBackground from "../../components/ScoreBackground/ScoreBackground";
+// import Table from "../../components/Table/Table";
+// import Text from "../../components/Text/Text";
+// import Trophy from "../../components/SvgIcons/Trophy";
+
+// import colors from "../../config/colors";
+// import fonts from "../../config/fonts";
+// import styles from "./styles";
+
+// import useScores from "../../hooks/useScores";
+
+// function Score() {
+//   const scores = useScores("global");
+//   const personalScores = useScores("personal");
+
+//   if (scores && personalScores) {
+//     return (
+//       <>
+//         <ScoreBackground visible={scores && personalScores} />
+//         <Screen>
+//           <View style={styles.container}>
+//             <View style={styles.tableContainer}>
+//               <View style={styles.header}>
+//                 <Trophy size={50} />
+//                 <Text
+//                   color={colors.dark}
+//                   fontFamily={fonts.primary}
+//                   fontSize={30}
+//                 >
+//                   World
+//                 </Text>
+//               </View>
+//               <Table scores={scores} />
+//             </View>
+//             <View style={styles.tableContainer}>
+//               <View style={styles.header}>
+//                 <Medal size={50} />
+//                 <Text
+//                   color={colors.dark}
+//                   fontFamily={fonts.primary}
+//                   fontSize={30}
+//                 >
+//                   Personal
+//                 </Text>
+//               </View>
+//               <Table scores={personalScores} />
+//             </View>
+//           </View>
+//         </Screen>
+//       </>
+//     );
+//   }
+
+//   return <ActivityIndicator visible={!personalScores && !scores} />;
+// }
+
+// export default Score;
